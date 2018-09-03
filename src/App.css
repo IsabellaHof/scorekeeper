@@ -1,3 +1,46 @@
 .App {
+  border: 1px solid blueviolet;
+  background: white;
   text-align: center;
+  align-content: center;
+  height: 800px;
+  width: 600px;
+}
+.Button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Button-Style {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+  width: 100px;
+  height: 50px;
+  background-color: blueviolet;
+  color: white;
+  border-radius: 10px;
+  font-size: 20px;
+}
+
+.Score-Style {
+  margin: 15px;
+  font-size: 120px;
+  color: blueviolet;
+}
+
+.ScoreUpdater-Style {
+  width: 50px;
+  height: 50px;
+  color: blueviolet;
+  font-size: 20px;
+  border: solid 1px blueviolet;
+  margin: 5px;
+}
+
+.ScoreUpdater-Style:hover {
+  background-color: blueviolet;
+  color: white;
 }
