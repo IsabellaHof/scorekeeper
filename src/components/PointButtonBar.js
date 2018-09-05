@@ -15,7 +15,7 @@ const StyledScore = styled.button`
   }
 `
 
-export default class ScoreUpdater extends Component {
+export default class PointButtonBar extends Component {
   render() {
     const { handleClick } = this.props
     return (
