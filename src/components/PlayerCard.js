@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import PlayerButtonBar from './PlayerButtonBar'
+import PlayerButtonBar from './PointButtonBar'
 
 const StyledBoard = styled.section`
   margin: 50px;
