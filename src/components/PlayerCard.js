@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import PointButtonBar from './PointButtonBar'
+import PlayerButtonBar from './PlayerButtonBar'
 
 const StyledBoard = styled.section`
   margin: 50px;
@@ -13,7 +13,7 @@ export default class PlayerCard extends Component {
       <StyledBoard>
         <span>{title}</span>
         <span>{score}</span>
-        <PointButtonBar handleClick={onUpdate} />
+        <PlayerButtonBar handleClick={onUpdate} />
       </StyledBoard>
     )
   }

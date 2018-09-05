@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import Button from './Button'
-import PlayerCard from './PlayerCard'
+
 import styled from 'styled-components'
 import { load, save } from '../Services'
 import StartScreen from './StartScreen'
+import GameScreen from './GameScreen'
 
 const StyledApp = styled.div`
   border: 1px solid blueviolet;
@@ -97,7 +97,7 @@ class App extends Component {
         players={this.state.players}
         onStartGame={this.startGame}
         onDeletePlayer={this.deletePlayer}
-        onDeleteAllPlayers={this.DeleteAllPlayers}
+        onDeleteAllPlayers={this.deleteAllPlayers}
         onAddPlayer={this.addPlayer}
       />
     )
@@ -105,20 +105,12 @@ class App extends Component {
 
   renderActiveGame() {
     return (
-      <React.Fragment>
-        <div className="App">
-          {this.state.players.map((player, index) => (
-            <PlayerCard
-              key={index}
-              title={player.name}
-              score={player.score}
-              onUpdate={score => this.updateScore(index, score)}
-            />
-          ))}
-          <Button onClick={this.resetScore}>Reset Scores</Button>
-          <Button onClick={this.backToStart}>Back</Button>
-        </div>
-      </React.Fragment>
+      <GameScreen
+        players={this.state.players}
+        onResetScore={this.resetScore}
+        onUpdateScore={this.updateScore}
+        onBack={this.backToStart}
+      />
     )
   }
   render() {
