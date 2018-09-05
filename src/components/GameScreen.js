@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import PlayerCard from './PlayerCard'
+import EditCard from './EditCard'
 import Button from './Button'
 
 export default class GameScreen extends Component {
@@ -9,7 +9,7 @@ export default class GameScreen extends Component {
       <React.Fragment>
         <div className="App">
           {players.map((player, index) => (
-            <PlayerCard
+            <EditCard
               key={index}
               title={player.name}
               score={player.score}
