@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import Button from './Button'
 import PlayerCard from './PlayerCard'
-import PlayerSetup from './PlayerInput'
 import styled from 'styled-components'
 import { load, save } from '../Services'
+import StartScreen from './StartScreen'
 
 const StyledApp = styled.div`
   border: 1px solid blueviolet;
@@ -51,6 +51,7 @@ class App extends Component {
       showStartScreen: true,
     })
   }
+
   startGame = () => {
     if (this.state.players.length) {
       this.setState(
@@ -71,16 +72,8 @@ class App extends Component {
     )
   }
 
-  renderWarningOrPlayButton() {
-    return this.state.players.length ? (
-      <Button onClick={this.startGame}>Play!</Button>
-    ) : (
-      <div>add one Player!</div>
-    )
-  }
-
   deletePlayer = index => {
-    const { players } = this.state
+    const players = this.state.players
     this.setState(
       {
         players: [...players.slice(0, index), ...players.slice(index + 1)],
@@ -89,8 +82,7 @@ class App extends Component {
     )
   }
 
-  deleteAllPlayer = index => {
-    const { players } = this.state
+  deleteAllPlayers = () => {
     this.setState(
       {
         players: [],
@@ -100,23 +92,14 @@ class App extends Component {
   }
 
   renderStartScreen() {
-    const { players } = this.state
     return (
-      <div>
-        <h1>StartScreen</h1>
-        {this.state.players.map((player, index) => (
-          <div key={index}>
-            {player.name}
-            <button onClick={() => this.deletePlayer(index)}>&times;</button>
-          </div>
-        ))}
-
-        <PlayerSetup onSubmit={this.addPlayer} />
-        <Button small onClick={this.deleteAllPlayer}>
-          Clear All Players
-        </Button>
-        {this.renderWarningOrPlayButton()}
-      </div>
+      <StartScreen
+        players={this.state.players}
+        onStartGame={this.startGame}
+        onDeletePlayer={this.deletePlayer}
+        onDeleteAllPlayers={this.DeleteAllPlayers}
+        onAddPlayer={this.addPlayer}
+      />
     )
   }
 

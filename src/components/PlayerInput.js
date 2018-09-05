@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-export default class PlayerSetup extends Component {
+export default class PlayerInput extends Component {
   state = {
     inputValue: '',
   }
@@ -12,7 +12,7 @@ export default class PlayerSetup extends Component {
   }
 
   ckeckForEnterButton = event => {
-    if (event.key === 'Enter' && this.state.inputValue != '') {
+    if (event.key === 'Enter' && this.state.inputValue) {
       this.props.onSubmit(this.state.inputValue)
       this.setState({ inputValue: '' })
     }
