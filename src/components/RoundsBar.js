@@ -1,6 +1,16 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 
+const Scroller = styled.div`
+  display: flex;
+  flex-wrap: nowrap;
+  -webkit-overflow-scrolling: touch;
+  overflow-x: scroll;
+  height: 100px;
+  width: 250px
+  background: #eee;
+`
+
 const StyledScore = styled.button`
   width: 50px;
   height: 50px;
@@ -16,19 +26,24 @@ const StyledScore = styled.button`
 `
 
 export default class RoundsBar extends Component {
-  state = {
-    round: [11, 20, 56],
+  scrollerRef = React.createRef()
+
+  componentDidMount() {
+    const scroller = this.scrollerRef.current
+    scroller.scrollLeft = scroller.scrollWidth
   }
+
   render() {
-    const { round } = this.state
+    let { scores } = this.props
+    scores = scores.length ? scores : [0]
     return (
-      <div>
-        <StyledScore>
-          {round.map(round => (
-            <div>{round}</div>
-          ))}
-        </StyledScore>
-      </div>
+      <Scroller innerRef={this.scrollerRef}>
+        {scores.map((score, i) => (
+          <StyledScore key={i}>{score}</StyledScore>
+        ))}
+      </Scroller>
     )
   }
 }
+
+// Scroller innerRef={this.scrollerRef} oder <div ref={this.scrollerRef}>

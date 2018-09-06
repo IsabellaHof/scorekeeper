@@ -14,6 +14,14 @@ import RoundsBar from '../components/RoundsBar'
 import SummaryCard from '../components/SummaryCard'
 import SummaryScreen from '../components/SummaryScreen'
 
+// const Wrapper = styled.section`
+//   width: ${props => (props.width ? props.width : '360')}px;
+//   margin: 0 auto;
+//   border: 1px solid #eee;
+//   border-radius: 4px;
+//   padding: 10px;
+// `
+
 storiesOf('Button', module)
   .addDecorator(withKnobs)
   .add('with text', () => (
@@ -102,33 +110,54 @@ storiesOf('PlayerHeader', module)
   ))
 
 storiesOf('RoundsBar', module)
-  .addDecorator(withKnobs)
-  .add('two digis', () => <RoundsBar />)
+  .add('no scores', () => (
+    //<Wrapper>
+    <RoundsBar scores={[]} />
+    //</Wrapper>
+  ))
+  .add('some scores', () => (
+    //<Wrapper>
+    <RoundsBar scores={[0, 20, 15, 10, 30, 40]} />
+    //</Wrapper>
+  ))
 
-storiesOf('SummaryCard', module)
+storiesOf('Cards/SummaryCard', module)
   .addDecorator(withKnobs)
-  .add('Summary', () => (
+  .add('no scores', () => (
     <SummaryCard
-      title={text('Player', 'Player')}
-      score={20}
-      round={number('Score', 0)}
+      title={text('Name', 'John Doe')}
+      scores={array('Scores', [0])}
+    />
+  ))
+  .add('some scores', () => (
+    <SummaryCard
+      title={text('Title', 'John Doe')}
+      scores={array('Scores', [10, 20, 30, 40, 10, -5, 20, 15])}
+    />
+  ))
+  .add('lots of scores', () => (
+    <SummaryCard
+      title={text('Title', 'John Doe')}
+      scores={array('Scores', [10, 20, 30, 40, 10, -5, 20, 15])}
     />
   ))
 
-storiesOf('SummaryScreen', module)
+storiesOf('Screens/SummaryScreen', module)
   .addDecorator(withKnobs)
-  .add('one Player', () => (
+  .add('no players', () => (
     <SummaryScreen
-      players={[{ name: 'John', score: 0 }]}
-      round={number('Score', 0)}
-      onAddRound={action('addRound')}
+      players={[]}
+      onAddRound={action('onAddRound')}
+      onBack={action('onBack')}
     />
   ))
-
-  .add('multiple Players', () => (
+  .add('some players', () => (
     <SummaryScreen
-      players={[{ name: 'John', score: 0 }, { name: 'Jen', score: 0 }]}
-      round={number('Score', 0)}
-      onAddRound={action('addRound')}
+      players={[
+        { name: 'John', scores: [10, 20, 30] },
+        { name: 'Jane', scores: [20, 30, -3] },
+      ]}
+      onAddRound={action('onAddRound')}
+      onBack={action('onBack')}
     />
   ))

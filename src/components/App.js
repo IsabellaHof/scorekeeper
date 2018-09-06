@@ -14,7 +14,7 @@ const StyledApp = styled.div`
 
 class App extends Component {
   state = {
-    showStartScreen: true,
+    showStartScreen: 'true', //or game, summary
     players: load('players') || [],
   }
 
@@ -113,6 +113,7 @@ class App extends Component {
       />
     )
   }
+
   render() {
     const { showStartScreen } = this.state
     return (
