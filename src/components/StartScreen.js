@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Button from './Button'
 import PlayerInput from './PlayerInput'
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 
 export default class StartScreen extends Component {
   render() {
@@ -33,7 +34,9 @@ export default class StartScreen extends Component {
   renderWarningOrPlayButton() {
     const { players, onStartGame } = this.props
     return players.length ? (
-      <Button onClick={onStartGame}>Play!</Button>
+      <Link to="/summary" style={{ textDecoration: 'none' }}>
+        <Button onClick={onStartGame}>Play!</Button>{' '}
+      </Link>
     ) : (
       <div>add one Player!</div>
     )

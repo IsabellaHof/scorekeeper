@@ -17,25 +17,25 @@ const StyledScore = styled.button`
 
 export default class PointButtonBar extends Component {
   render() {
-    const { handleClick } = this.props
+    const { onClick } = this.props
     return (
       <div>
-        <StyledScore onClick={() => handleClick(-10)}>
+        <StyledScore onClick={() => onClick(-10)}>
           <strong>-10</strong>
         </StyledScore>
-        <StyledScore onClick={() => handleClick(-5)}>
+        <StyledScore onClick={() => onClick(-5)}>
           <strong> -5</strong>
         </StyledScore>
-        <StyledScore onClick={() => handleClick(-1)}>
+        <StyledScore onClick={() => onClick(-1)}>
           <strong>-1</strong>
         </StyledScore>
-        <StyledScore onClick={() => handleClick(1)}>
+        <StyledScore onClick={() => onClick(1)}>
           <strong>1</strong>
         </StyledScore>
-        <StyledScore onClick={() => handleClick(5)}>
+        <StyledScore onClick={() => onClick(5)}>
           <strong>5</strong>
         </StyledScore>
-        <StyledScore onClick={() => handleClick(10)}>
+        <StyledScore onClick={() => onClick(10)}>
           <strong>10</strong>
         </StyledScore>
       </div>

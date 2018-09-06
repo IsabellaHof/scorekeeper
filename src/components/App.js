@@ -4,32 +4,34 @@ import styled from 'styled-components'
 import { load, save } from '../Services'
 import StartScreen from './StartScreen'
 import GameScreen from './GameScreen'
+import SummaryScreen from './SummaryScreen'
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 
 const StyledApp = styled.div`
-  border: 1px solid blueviolet;
-  background: white;
   text-align: center;
-  height: 99vh;
+  height: 90vh;
+  width: 300px;
 `
 
 class App extends Component {
   state = {
-    showStartScreen: 'true', //or game, summary
+    //showScreen: 'start', //or "game" or "summary"
     players: load('players') || [],
   }
 
   updateScore = (index, value) => {
-    const { players } = this.state
+    const players = this.state.players
     const player = players[index]
+
     this.setState(
       {
         players: [
           ...players.slice(0, index),
-          { ...player, score: player.score + value },
+          { ...player, roundScore: player.roundScore + value },
           ...players.slice(index + 1),
         ],
       },
-      this.saveplayers
+      this.savePlayers
     )
   }
 
@@ -38,35 +40,34 @@ class App extends Component {
   }
 
   resetScore = () => {
-    this.setState(
-      {
-        players: this.state.players.map(player => ({ ...player, score: 0 })),
-      },
-      this.savePlayers
-    )
-  }
-
-  backToStart = () => {
+    const players = this.state.players
     this.setState({
-      showStartScreen: true,
+      players: players.map(
+        player => ({
+          ...player,
+          scores: [...player.scores, player.roundScore],
+          roundScore: 0,
+        }),
+
+        this.savePlayers
+      ),
     })
   }
 
-  startGame = () => {
-    if (this.state.players.length) {
-      this.setState(
-        {
-          showStartScreen: false,
-        },
-        this.savePlayers
-      )
-    }
-  }
+  // startGame = () => {
+  //   if (this.state.players.length > 0) {
+  //     this.setState({
+  //       showScreen: 'summary',
+  //     })
+  //   }
+  // }
+
   addPlayer = name => {
     const players = this.state.players
+
     this.setState(
       {
-        players: [...players, { name: name, score: 0 }],
+        players: [...players, { name: name, scores: [], roundScore: 0 }],
       },
       this.savePlayers
     )
@@ -74,6 +75,7 @@ class App extends Component {
 
   deletePlayer = index => {
     const players = this.state.players
+
     this.setState(
       {
         players: [...players.slice(0, index), ...players.slice(index + 1)],
@@ -91,35 +93,74 @@ class App extends Component {
     )
   }
 
-  renderStartScreen() {
+  renderStartScreen = () => {
     return (
       <StartScreen
         players={this.state.players}
-        onStartGame={this.startGame}
+        onAddPlayer={this.addPlayer}
         onDeletePlayer={this.deletePlayer}
         onDeleteAllPlayers={this.deleteAllPlayers}
-        onAddPlayer={this.addPlayer}
+        onStartGame={this.startGame}
       />
     )
   }
 
-  renderGameScreen() {
+  backToStartScreen = () => {
+    this.setState({
+      // showScreen: 'start',
+    })
+  }
+
+  saveRound = () => {
+    const players = this.state.players
+    this.setState({
+      players: players.map(player => ({
+        ...player,
+        scores: [...player.scores, player.roundScore],
+        roundScore: 0,
+      })),
+      //showScreen: 'summary',
+    })
+  }
+
+  addRound() {
+    this.setState({
+      showScreen: 'game',
+    })
+  }
+
+  renderGameScreen = () => {
     return (
       <GameScreen
         players={this.state.players}
-        onResetScore={this.resetScore}
+        onSaveRound={this.saveRound}
         onUpdateScore={this.updateScore}
-        onBack={this.backToStart}
+        onResetScores={this.resetScore}
+      />
+    )
+  }
+
+  renderSummaryScreen = () => {
+    return (
+      <SummaryScreen
+        players={this.state.players}
+        onAddRound={() => this.addRound()}
+        onBackToStart={this.backToStartScreen}
       />
     )
   }
 
   render() {
-    const { showStartScreen } = this.state
     return (
-      <StyledApp>
-        {showStartScreen ? this.renderStartScreen() : this.renderGameScreen()}
-      </StyledApp>
+      <Router>
+        <StyledApp>
+          {/* {this.renderScreen()} */}
+
+          <Route exact path="/" render={this.renderStartScreen} />
+          <Route exact path="/summary" render={this.renderSummaryScreen} />
+          <Route exact path="/game" render={this.renderGameScreen} />
+        </StyledApp>
+      </Router>
     )
   }
 }

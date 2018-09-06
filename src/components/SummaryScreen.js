@@ -1,16 +1,22 @@
 import React, { Component } from 'react'
 import SummaryCard from './SummaryCard'
 import Button from './Button'
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 
 export default class SummaryScreen extends Component {
   render() {
-    const { players, round, onAddRound } = this.props
+    const { players, onBackToStart, onAddRound } = this.props
     return (
       <div>
-        {players.map(player => (
-          <SummaryCard title={player.name} score={player.score} round={round} />
+        {players.map((player, index) => (
+          <SummaryCard key={index} title={player.name} scores={player.scores} />
         ))}
-        <Button onClick={onAddRound}>add round</Button>
+        <Link to="/game" style={{ textDecoration: 'none' }}>
+          <Button onClick={onAddRound}>add round</Button>
+        </Link>
+        <Link to="/" style={{ textDecoration: 'none' }}>
+          <Button onClick={onBackToStart}> Back To Start</Button>
+        </Link>
       </div>
     )
   }

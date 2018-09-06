@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import PlayerHeader from './PlayerHeader'
 import RoundsBar from './RoundsBar'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 
 const Wrapper = styled.section`
   border-radius: 4px;
@@ -11,15 +11,17 @@ const Wrapper = styled.section`
 `
 
 export default class SummaryCard extends Component {
-  static propTypes = {
-    title: PropTypes.string,
-    scores: PropTypes.arrayOf(PropTypes.number),
-  }
+  // static propTypes = {
+  //   title: PropTypes.string,
+  //   scores: PropTypes.arrayOf(PropTypes.number),
+  // }
 
   render() {
     const { title, scores } = this.props
-    const total =
-      scores.reduce((prev, curr) => Number(prev) + Number(curr), 0) || 0
+    const total = scores.reduce(
+      (previous, current) => Number(previous) + Number(current),
+      0
+    ) //|| 0
     return (
       <Wrapper>
         <PlayerHeader title={title} score={total} />

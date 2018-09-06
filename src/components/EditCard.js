@@ -13,7 +13,7 @@ export default class EditCard extends Component {
       <StyledBoard>
         <span>{title}</span>
         <span>{score}</span>
-        <PointButtonBar handleClick={onUpdate} />
+        <PointButtonBar onClick={onUpdate} />
       </StyledBoard>
     )
   }

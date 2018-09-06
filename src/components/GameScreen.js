@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import EditCard from './EditCard'
 import Button from './Button'
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 
 export default class GameScreen extends Component {
   render() {
-    const { players, onResetScore, onUpdateScore, onBack } = this.props
+    const { players, onResetScores, onUpdateScore, onSaveRound } = this.props
     return (
       <React.Fragment>
         <div className="App">
@@ -12,12 +13,14 @@ export default class GameScreen extends Component {
             <EditCard
               key={index}
               title={player.name}
-              score={player.score}
+              score={player.roundScore}
               onUpdate={score => onUpdateScore(index, score)}
             />
           ))}
-          <Button onClick={onResetScore}>Reset Scores</Button>
-          <Button onClick={onBack}>Back</Button>
+          <Link to="/summary" style={{ textDecoration: 'none' }}>
+            <Button onClick={onSaveRound}>Save Round</Button>
+          </Link>
+          <Button onClick={onResetScores}>Reset Scores</Button>
         </div>
       </React.Fragment>
     )
